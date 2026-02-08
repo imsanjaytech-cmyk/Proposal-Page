@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposal Day 💍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at top, #ffdde1, #ee9ca7);
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.95);
+        padding: 35px 30px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+        max-width: 420px;
+        width: 90%;
+        animation: scaleIn 1s ease;
+    }
+
+    h1 {
+        margin-top: 0;
+        color: #ff5e62;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 17px;
+        color: #444;
+        line-height: 1.6;
+    }
+
+    .question {
+        margin: 25px 0;
+        font-size: 22px;
+        font-weight: 600;
+        color: #ff6f61;
+    }
+
+    .buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+    }
+
+    button {
+        padding: 12px 30px;
+        border-radius: 40px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    #yesBtn {
+        background: linear-gradient(135deg, #ff6f61, #ff9966);
+        color: white;
+        box-shadow: 0 10px 25px rgba(255,111,97,0.45);
+    }
+
+    #yesBtn:hover {
+        transform: scale(1.15);
+    }
+
+    #noBtn {
+        background: #eee;
+        color: #555;
+        position: relative;
+    }
+
+    .thinking {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #777;
+        min-height: 18px;
+        transition: 0.3s;
+    }
+
+    .answer {
+        display: none;
+        animation: fadeUp 1s ease;
+    }
+
+    .answer h2 {
+        color: #ff5e62;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: absolute;
+        bottom: -30px;
+        animation: floatUp 6s linear infinite;
+        opacity: 0.8;
+    }
+
+    /* Image styling */
+    .proposal-image {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .proposal-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    @keyframes floatUp {
+        from { transform: translateY(0) scale(1); opacity:1; }
+        to { transform: translateY(-120vh) scale(1.5); opacity:0; }
+    }
+
+    @keyframes scaleIn {
+        from { transform: scale(0.6); opacity:0; }
+        to { transform: scale(1); opacity:1; }
+    }
+
+    @keyframes fadeUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="proposalCard">
+    <h1>Proposal Day 💖</h1>
+    <p>
+        Hi Malini ❤️<br>
+       This is Sanjay, nan idha solliye aganum nee avalo azhagu,<br>
+       will you marry me 🥺
+    </p>
+
+    <!-- Image placeholder -->
+    <div class="proposal-image">
+    </div>
+
+    <div class="question">Will you marry me?</div>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes ❤️</button>
+        <button id="noBtn">No 😌</button>
+    </div>
+
+    <div class="thinking" id="thinkingText"></div>
+</div>
+
+<div class="card answer" id="answerCard">
+    <h2>Best Decision Ever 💍</h2>
+    <p>
+        Seri 😍<br>
+        appo epa marriage vachukalam 😎💖
+    </p>
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const thinkingText = document.getElementById("thinkingText");
+    const proposalCard = document.getElementById("proposalCard");
+    const answerCard = document.getElementById("answerCard");
+
+    const noMessages = [
+        "No lam solla koodathu thangam 😘",
+        "mathi button ah click panra papu yes sollu my maan kutty 💓",
+        "Neeyum nanum semma jodi so yosichu sollu 😏",
+        "Kattikalama namma🥺",
+        "Jaanu Mahir yes sollunga amma nu kekanga ❤️"
+    ];
+noBtn.addEventListener("mouseenter", () => {
+    // Change text
+    const msg = noMessages[Math.floor(Math.random() * noMessages.length)];
+    noBtn.textContent = msg;
+
+    // Move button randomly within the viewport
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+    noBtn.style.position = "fixed"; // use fixed so it moves across screen
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+});
+
+// Reset No button to original when mouse leaves
+noBtn.addEventListener("mouseleave", () => {
+    noBtn.textContent = "No 😌";
+    noBtn.style.position = "relative";
+    noBtn.style.left = "";
+    noBtn.style.top = "";
+});
+
+    // Yes button click
+    yesBtn.addEventListener("click", () => {
+        proposalCard.style.display = "none";
+        answerCard.style.display = "block";
+        startHearts();
+    });
+
+    function startHearts() {
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "💖";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 16 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }, 350);
+    }
+
+</script>
+
+</body>
+</html>
